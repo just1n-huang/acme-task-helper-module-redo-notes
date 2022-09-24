@@ -39,10 +39,19 @@ export const toggleTask = (task) => {
   };
 };
 
-export const createTask = (task) => {
+export const createTask = (task, navigate) => {
   return async (dispatch) => {
     const response = await axios.post("/api/tasks/", task);
     dispatch({ type: "CREATE_TASK", task: response.data });
+    navigate("/pending");
+  };
+};
+
+export const updateTask = (task, navigate) => {
+  return async (dispatch) => {
+    const response = await axios.put(`/api/tasks/${task.id}`, task);
+    dispatch({ type: "UPDATE_TASK", task: response.data });
+    navigate("/");
   };
 };
 

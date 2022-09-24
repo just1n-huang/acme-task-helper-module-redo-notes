@@ -4,6 +4,7 @@ import store, { fetchTasks } from "./store";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import Tasks from "./Tasks";
 import TaskCreate from "./TaskCreate";
+import TaskUpdate from "./TaskUpdate";
 import { Link, HashRouter, Routes, Route, useLocation } from "react-router-dom";
 
 // useSelector to get the data from the store
@@ -15,7 +16,6 @@ import { Link, HashRouter, Routes, Route, useLocation } from "react-router-dom";
 const App = () => {
   const { tasks } = useSelector((state) => state);
   const { pathname } = useLocation();
-  console.log(pathname);
   const dispatch = useDispatch();
   useEffect(() => {
     // console.log("fetch tasks");
@@ -44,13 +44,20 @@ const App = () => {
         >
           Complete
         </Link>
+        <Link
+          to="/tasks/create"
+          className={pathname === "/tasks/create" ? "selected" : ""}
+        >
+          Create Task
+        </Link>
       </nav>
       <Routes>
         <Route path="/" element={<Tasks />}></Route>
         <Route path="/complete" element={<Tasks />}></Route>
         <Route path="/pending" element={<Tasks />}></Route>
+        <Route path="/tasks/create" element={<TaskCreate />}></Route>
+        <Route path="/tasks/:id" element={<TaskUpdate />}></Route>
       </Routes>
-      <TaskCreate />
     </div>
   );
 };

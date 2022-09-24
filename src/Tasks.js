@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTask } from "./store";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Tasks = () => {
   const { tasks } = useSelector((state) => state);
@@ -23,12 +23,15 @@ const Tasks = () => {
     <ul>
       {filtered.map((task) => {
         return (
-          <li
-            key={task.id}
-            className={task.complete ? "complete" : ""}
-            onClick={() => dispatch(toggleTask(task))}
-          >
-            {task.name}
+          <li key={task.id}>
+            <span
+              className={task.complete ? "complete" : ""}
+              onClick={() => dispatch(toggleTask(task))}
+            >
+              {" "}
+              {task.name}
+            </span>
+            <Link to={`tasks/${task.id}`}>Edit</Link>
           </li>
         );
       })}
